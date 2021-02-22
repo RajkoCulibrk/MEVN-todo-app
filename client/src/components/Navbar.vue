@@ -5,8 +5,8 @@
     </div>
 
     <div class="nav-links">
-      <router-link to="Signin">Signin</router-link>
-      <router-link to="Signup">Signin</router-link>
+      <router-link to="Signin">kurac</router-link>
+      <router-link to="Signup">palac</router-link>
     </div>
   </div>
 </template>
