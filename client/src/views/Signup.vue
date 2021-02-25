@@ -1,27 +1,37 @@
 <template>
-  <form @submit.prevent="onSubmit">
-    <h3>Sign up</h3>
-    <input type="text" placeholder="Username" v-model="username" />
-    <input type="email" placeholder="Email" v-model="email" />
-    <input type="password" placeholder="Password" v-model="password" />
-    <input type="password" placeholder="Repeat password" v-model="password2" />
-    <button>Sign up</button>
-    <Error v-for="error in errors" :key="error.id" :error="error" />
-  </form>
+  <div>
+    <SpinnerVue v-if="loadingUser" />
+    <form v-if="!loadingUser" @submit.prevent="onSubmit">
+      <h3>Sign up</h3>
+      <input type="text" placeholder="Username" v-model="username" />
+      <input type="email" placeholder="Email" v-model="email" />
+      <input type="password" placeholder="Password" v-model="password" />
+      <input
+        type="password"
+        placeholder="Repeat password"
+        v-model="password2"
+      />
+      <button>Sign up</button>
+      <Error v-for="error in errors" :key="error.id" :error="error" />
+    </form>
+  </div>
 </template>
 
 <script>
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
 import Error from "../components/Error.vue";
+import SpinnerVue from "../components/Spinner.vue";
+
 export default {
-  components: { Error },
+  components: { Error, SpinnerVue },
   setup() {
     const store = useStore();
     const username = ref("");
     const password = ref("");
     const password2 = ref("");
     const email = ref("");
+    const loadingUser = computed(() => store.state.loadingUser);
     const errors = computed(() => store.getters.errors);
     let user = {
       name: username.value,
@@ -42,7 +52,16 @@ export default {
         store.commit("setError", { errMessage: "Passwords do not match!" });
       }
     };
-    return { onSubmit, username, password, email, store, errors, password2 };
+    return {
+      onSubmit,
+      username,
+      password,
+      email,
+      store,
+      errors,
+      password2,
+      loadingUser,
+    };
   },
 };
 </script>

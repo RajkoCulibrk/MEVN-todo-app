@@ -1,37 +1,43 @@
 <template>
-  <form @submit.prevent="onSubmit">
-    <h3>Sign in</h3>
+  <div>
+    <SpinnerVue v-if="loadingUser" />
+    <form v-if="!loadingUser" @submit.prevent="onSubmit">
+      <h3>Sign in</h3>
 
-    <input type="email" required placeholder="Email" v-model="email" />
-    <input type="password" required placeholder="Password" v-model="password" />
-    <button>Sign in</button>
-    <div class="to-signup">
-      Don't have an account? <br />
-      <router-link to="Signup">Sing up !</router-link>
-    </div>
+      <input type="email" required placeholder="Email" v-model="email" />
+      <input
+        type="password"
+        required
+        placeholder="Password"
+        v-model="password"
+      />
+      <button>Sign in</button>
+      <div class="to-signup">
+        Don't have an account? <br />
+        <router-link to="Signup">Sing up !</router-link>
+      </div>
 
-    <Error v-for="error in errors" :key="error.id" :error="error" />
-  </form>
+      <Error v-for="error in errors" :key="error.id" :error="error" />
+    </form>
+  </div>
 </template>
 
 <script>
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
 import Error from "../components/Error.vue";
+import SpinnerVue from "../components/Spinner.vue";
 
 export default {
-  components: { Error },
+  components: { Error, SpinnerVue },
   setup() {
     const store = useStore();
 
     const errors = computed(() => store.getters.errors);
+    const loadingUser = computed(() => store.state.loadingUser);
 
     const password = ref("");
     const email = ref("");
-    let user = {
-      password: password.value,
-      email: email.value,
-    };
 
     const onSubmit = () => {
       store.dispatch({
@@ -42,7 +48,7 @@ export default {
         },
       });
     };
-    return { onSubmit, password, email, store, errors };
+    return { onSubmit, password, email, store, errors, loadingUser };
   },
 };
 </script>

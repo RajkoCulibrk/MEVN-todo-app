@@ -25,7 +25,10 @@ export default createStore({
   state: {
     user: user,
     errors: [],
-    todos: []
+    todos: [],
+    filtered: [],
+    loadingTodos: false,
+    loadingUser: false
   },
   mutations: {
     setUser: (state, user) => {
@@ -53,11 +56,26 @@ export default createStore({
       state.todos = data;
     },
     addTodo: (state, data) => {
-      console.log(data, "commited");
       state.todos = [data, ...state.todos];
+      if (state.filtered[0]) {
+        if (state.filtered[0].important === true && data.important == true) {
+          console.log(state.filtered[0].important);
+          state.filtered = [data, ...state.filtered];
+        }
+      }
     },
     deleteTodo: (state, id) => {
       state.todos = state.todos.filter((todo) => todo._id !== id);
+      state.filtered = state.filtered.filter((todo) => todo._id !== id);
+    },
+    setLoadingTodos: (state, data) => {
+      state.loadingTodos = data;
+    },
+    setLoadingUser: (state, data) => {
+      state.loadingUser = data;
+    },
+    setFiltered: (state, data) => {
+      state.filtered = data;
     }
   },
   actions: {
@@ -82,12 +100,23 @@ export default createStore({
       }
     },
     async getTodos({ commit }) {
-      console.log("sadf");
       try {
+        commit("setLoadingTodos", true);
         let { data } = await instance.get("/api/todos");
-        commit("setTodos", data);
+        const completed = data.filter((todo) => todo.completed == true);
+        const important = data.filter(
+          (todo) => todo.completed == false && todo.important == true
+        );
+        const normal = data.filter(
+          (todo) => todo.completed == false && todo.important == false
+        );
+        /* state.todos.filter((todo)=>todo.completed==true) */
+        const sorted = [...important, ...normal, ...completed];
+        commit("setLoadingTodos", false);
+        commit("setTodos", sorted);
       } catch (error) {
         console.log(error.response.data);
+        commit("setLoadingTodos", false);
       }
     },
     async signIn({ commit, dispatch }, { payload }) {
@@ -99,6 +128,7 @@ export default createStore({
         dispatch("getUser");
       } catch (error) {
         localStorage.removeItem("token");
+
         if (error.response.data.errors) {
           commit("setError", { errMessage: error.response.data.errors[0].msg });
         }
@@ -107,12 +137,14 @@ export default createStore({
     },
     async getUser({ commit }) {
       try {
+        commit("setLoadingUser", true);
         let { data } = await instance.get("/api/auth");
         localStorage.setItem("user", JSON.stringify(data));
         commit("setUser", data);
       } catch (error) {
         localStorage.removeItem("user");
         localStorage.removeItem("token");
+        commit("setLoadingUser", false);
         console.log(error.response?.data, "erore");
         console.log(error.response);
       }
@@ -130,6 +162,14 @@ export default createStore({
       try {
         await instance.delete(`/api/todos/${payload}`);
         commit("deleteTodo", payload);
+      } catch (error) {
+        console.log(error.response.data);
+      }
+    },
+    async updateTodo({ commit }, { payload }) {
+      try {
+        const todo = await instance.put(`/api/todos/${payload._id}`, payload);
+        console.log(todo);
       } catch (error) {
         console.log(error.response.data);
       }

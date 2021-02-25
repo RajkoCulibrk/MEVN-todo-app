@@ -23,6 +23,8 @@ export default {
     const todo = ref({ text: "", important: false });
     const addTodo = () => {
       store.dispatch({ type: "addTodo", payload: { ...todo.value } });
+      todo.value.text = "";
+      todo.value.important = false;
     };
     return { addTodo, todo };
   },

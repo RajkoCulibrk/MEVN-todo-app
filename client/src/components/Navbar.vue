@@ -7,7 +7,11 @@
     </router-link>
 
     <div class="nav-links">
-      <span v-if="user">Logged in as {{ user.name }} {{ user.email }} </span>
+      <div class="wellcome" v-if="user">
+        Logged in as : <br />
+        <span class="name">{{ user.name }}</span> <br />
+        <span>{{ user.email }}</span>
+      </div>
       <router-link v-if="!user" to="Signin">Login</router-link>
       <a @click="store.commit('logout')" v-if="user" href="#">Logout</a>
     </div>
@@ -54,5 +58,12 @@ export default {
 }
 .logo img {
   width: 50px;
+}
+
+.wellcome {
+  font-size: 0.8rem;
+}
+.name {
+  text-transform: capitalize;
 }
 </style>

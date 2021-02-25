@@ -29,7 +29,7 @@
         <label for="completed">Completed</label>
       </div>
       <button class="delete" v-if="!editing" @click="deleteTodo">Delete</button>
-      <button class="update" v-if="editing" @click="log">Update</button>
+      <button class="update" v-if="editing" @click="updateTodo">Update</button>
       <button @click="setEdit">{{ editing ? "Cancel" : "Edit" }}</button>
     </div>
   </div>
@@ -46,17 +46,18 @@ export default {
     const tod = propsovi.todo.value;
     const editing = ref(false);
 
-    const todos = computed(() => store.getters.todos);
     const setEdit = () => {
       editing.value = !editing.value;
     };
-    const log = () => {
-      console.log(tod);
-    };
+
     const deleteTodo = () => {
       store.dispatch({ type: "deleteTodo", payload: tod._id });
     };
-    return { tod, log, editing, setEdit, deleteTodo };
+    const updateTodo = () => {
+      store.dispatch({ type: "updateTodo", payload: tod });
+      editing.value = false;
+    };
+    return { tod, editing, setEdit, deleteTodo, updateTodo };
   },
 };
 </script>
