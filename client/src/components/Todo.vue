@@ -28,7 +28,7 @@
         />
         <label for="completed">Completed</label>
       </div>
-      <button class="delete" v-if="!editing" @click="log">Delete</button>
+      <button class="delete" v-if="!editing" @click="deleteTodo">Delete</button>
       <button class="update" v-if="editing" @click="log">Update</button>
       <button @click="setEdit">{{ editing ? "Cancel" : "Edit" }}</button>
     </div>
@@ -53,7 +53,10 @@ export default {
     const log = () => {
       console.log(tod);
     };
-    return { tod, log, editing, setEdit };
+    const deleteTodo = () => {
+      store.dispatch({ type: "deleteTodo", payload: tod._id });
+    };
+    return { tod, log, editing, setEdit, deleteTodo };
   },
 };
 </script>

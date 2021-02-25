@@ -51,6 +51,13 @@ export default createStore({
     },
     setTodos: (state, data) => {
       state.todos = data;
+    },
+    addTodo: (state, data) => {
+      console.log(data, "commited");
+      state.todos = [data, ...state.todos];
+    },
+    deleteTodo: (state, id) => {
+      state.todos = state.todos.filter((todo) => todo._id !== id);
     }
   },
   actions: {
@@ -108,6 +115,23 @@ export default createStore({
         localStorage.removeItem("token");
         console.log(error.response?.data, "erore");
         console.log(error.response);
+      }
+    },
+    async addTodo({ commit }, { payload }) {
+      try {
+        const { data } = await instance.post("/api/todos", payload);
+
+        commit("addTodo", data);
+      } catch (error) {
+        console.log(error.response.data);
+      }
+    },
+    async deleteTodo({ commit }, { payload }) {
+      try {
+        await instance.delete(`/api/todos/${payload}`);
+        commit("deleteTodo", payload);
+      } catch (error) {
+        console.log(error.response.data);
       }
     }
   },

@@ -19,27 +19,28 @@ router.post(
   "/",
   [
     auth,
-    [check("text", "Please enter something for this todo").not().isEmpty()],
+    [check("text", "Please enter something for this todo").not().isEmpty()]
   ],
   auth,
   async (req, res) => {
+    const { text, important } = req.body;
+
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    const { text, important } = req.body;
 
     try {
       const todoFields = {
         text: text,
-        user: req.user.id,
+        user: req.user.id
       };
       if (important) {
         todoFields.important = important;
       }
       const newTdodo = new Todo({
-        ...todoFields,
+        ...todoFields
       });
 
       const todo = await newTdodo.save();

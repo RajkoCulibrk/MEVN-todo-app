@@ -26,5 +26,5 @@ if (process.env.NODE_ENV === "production") {
 }
 
 app.listen(PORT, () => {
-  console.log(`connected on port ${PORT}`);
+  console.log(`connected ond port ${PORT}`);
 });
