@@ -1,18 +1,33 @@
 <template>
   <div class="navbar">
-    <div class="logo">
-      <img src="@/assets/logo.png" alt="" />
-    </div>
+    <router-link to="/">
+      <div class="logo">
+        <img src="@/assets/logo.png" alt="logo" />
+      </div>
+    </router-link>
 
     <div class="nav-links">
-      <router-link to="Signin">kurac</router-link>
-      <router-link to="Signup">palac</router-link>
+      <span v-if="user">Logged in as {{ user.name }} {{ user.email }} </span>
+      <router-link v-if="!user" to="Signin">Login</router-link>
+      <a @click="store.commit('logout')" v-if="user" href="#">Logout</a>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+import { computed } from "vue";
+import { useStore } from "vuex";
+
+export default {
+  setup() {
+    const store = useStore();
+    const user = computed(() => store.getters.user);
+
+    const counter = computed(() => store.getters.count);
+
+    return { user, counter, store };
+  },
+};
 </script>
 
 <style>

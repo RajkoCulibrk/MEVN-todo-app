@@ -7,17 +7,42 @@ const routes = [
   {
     path: "/",
     name: "Home",
-    component: Home
+    component: Home,
+    beforeEnter(to, from, next) {
+      let user = localStorage.getItem("user");
+      if (user) {
+        next();
+      } else {
+        next("/signin");
+      }
+    }
   },
   {
     path: "/Signin",
     name: "Signin",
-    component: Signin
+
+    component: Signin,
+    beforeEnter(to, from, next) {
+      let user = localStorage.getItem("user");
+      if (user) {
+        next("/");
+      } else {
+        next();
+      }
+    }
   },
   {
     path: "/Signup",
     name: "Signup",
-    component: Signup
+    component: Signup,
+    beforeEnter(to, from, next) {
+      let user = localStorage.getItem("user");
+      if (user) {
+        next("/");
+      } else {
+        next();
+      }
+    }
   }
 ];
 
