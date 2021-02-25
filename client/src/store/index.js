@@ -24,7 +24,8 @@ let user = JSON.parse(localStorage.getItem("user"));
 export default createStore({
   state: {
     user: user,
-    errors: []
+    errors: [],
+    todos: []
   },
   mutations: {
     setUser: (state, user) => {
@@ -47,6 +48,9 @@ export default createStore({
       localStorage.removeItem("token");
       state.user = null;
       router.go("/login");
+    },
+    setTodos: (state, data) => {
+      state.todos = data;
     }
   },
   actions: {
@@ -74,6 +78,7 @@ export default createStore({
       console.log("sadf");
       try {
         let { data } = await instance.get("/api/todos");
+        commit("setTodos", data);
       } catch (error) {
         console.log(error.response.data);
       }
@@ -116,6 +121,9 @@ export default createStore({
     },
     errors(state) {
       return state.errors;
+    },
+    todos(state) {
+      return state.todos;
     }
   }
 });
