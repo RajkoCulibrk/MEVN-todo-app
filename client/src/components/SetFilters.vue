@@ -48,9 +48,13 @@ select {
   display: block;
   padding: 0.5rem;
   font-size: 1.5rem;
-
   border-radius: 1rem;
   outline: none;
   margin: auto;
+}
+@media screen and (max-width: 800px) {
+  select {
+    padding: 0;
+  }
 }
 </style>

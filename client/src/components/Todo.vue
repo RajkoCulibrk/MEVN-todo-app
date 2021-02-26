@@ -69,9 +69,10 @@ export default {
   max-width: 60%;
   margin: auto;
   margin-top: 1rem;
-  background-color: #85ffbd;
+  background-color: #aaaaaaca;
   padding: 1rem;
   border-radius: 1rem;
+  box-shadow: 3px 3px 10px rgb(83, 83, 83);
 }
 
 .todo-options {
@@ -88,7 +89,7 @@ input[type="text"] {
   padding-left: 2rem;
   outline: none;
   border: none;
-  background-color: rgb(218, 205, 205);
+  background-color: #fefae0;
 }
 label {
   font-weight: bold;
@@ -96,7 +97,7 @@ label {
 }
 
 .urgent {
-  background-color: rgb(255, 99, 99) !important;
+  background-color: #ef233c !important;
   color: white;
   font-style: italic;
 }
@@ -110,15 +111,21 @@ button {
   padding: 0.5rem;
   border-radius: 0.5rem;
   outline: none;
-  background-color: rgb(111, 111, 206);
+  background-color: #3a86ff;
   color: white;
 }
 
 .delete {
-  background-color: #ff3300;
+  background-color: #ff006e;
 }
 
 .update {
-  background-color: orange;
+  background-color: #f6bd60;
+}
+
+@media screen and (max-width: 800px) {
+  .todo {
+    max-width: 90%;
+  }
 }
 </style>

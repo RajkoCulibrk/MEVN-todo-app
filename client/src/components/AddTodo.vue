@@ -1,7 +1,7 @@
 <template>
   <div class="addTodo">
     <input type="text" v-model="todo.text" placeholder="New todo" />
-    <div>
+    <div class="inputContainer">
       <input
         v-model="todo.important"
         type="checkbox"
@@ -35,8 +35,8 @@ export default {
 .addTodo {
   margin: auto;
   max-width: 60%;
-  background-color: rgb(222, 228, 208);
   display: flex;
+  background: rgba(128, 128, 128, 0.507);
   justify-content: center;
   align-items: center;
   padding: 1rem;
@@ -53,6 +53,8 @@ input[type="text"] {
 }
 label {
   margin-right: 1rem;
+  margin-left: 0.2rem;
+  color: white;
 }
 button {
   padding: 0.5rem;
@@ -61,5 +63,18 @@ button {
   outline: none;
   border-radius: 1rem;
   font-size: 1.2rem;
+}
+@media screen and (max-width: 800px) {
+  .addTodo {
+    max-width: 100%;
+    flex-direction: column;
+  }
+  button {
+    font-size: 1rem;
+    background: #38a3a5;
+  }
+  .inputContainer {
+    margin: 0.5rem 0;
+  }
 }
 </style>

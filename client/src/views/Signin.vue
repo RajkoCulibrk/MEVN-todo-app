@@ -14,7 +14,7 @@
       <button>Sign in</button>
       <div class="to-signup">
         Don't have an account? <br />
-        <router-link to="Signup">Sing up !</router-link>
+        <router-link to="Signup">Sign up !</router-link>
       </div>
 
       <Error v-for="error in errors" :key="error.id" :error="error" />

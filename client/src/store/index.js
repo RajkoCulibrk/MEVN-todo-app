@@ -89,13 +89,15 @@ export default createStore({
         localStorage.removeItem("token");
         console.log(error.response.data);
         if (error.response.data.errors) {
-          commit("setError", { errMessage: error.response.data.errors[0].msg });
+          commit("setError", {
+            errMessage: error.response.data.errors[0].msg
+          });
         }
         if (error.response.data.msg) {
-          commit("setError", { errMessage: error.response.data.msg });
+          commit("setError", { errMessage: error.response.data.msg.msg });
         }
         if (error.response.data) {
-          commit("setError", { errMessage: error.response.data });
+          commit("setError", { errMessage: error.response.data.msg });
         }
       }
     },

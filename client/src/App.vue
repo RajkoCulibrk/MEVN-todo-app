@@ -22,6 +22,9 @@ html {
   font-family: "Roboto", sans-serif;
 }
 body {
-  background: rgb(255, 249, 249);
+  /*  background: rgb(255, 249, 249); */
+  background-image: url("assets/background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 </style>

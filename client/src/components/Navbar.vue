@@ -55,6 +55,7 @@ export default {
   margin-left: 1rem;
   padding: 0.5rem;
   background: #85ffbd;
+  box-shadow: 2px 2px 4px black;
 }
 .logo img {
   width: 50px;

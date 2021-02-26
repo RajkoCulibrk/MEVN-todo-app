@@ -19,8 +19,10 @@ export default {
 
 <style>
 .error {
-  color: red;
+  color: #ff477e;
+  text-shadow: 2px 2px 2px black;
   margin-top: 0.2rem;
+  font-size: 2rem;
   font-weight: bold;
   letter-spacing: 3px;
 }

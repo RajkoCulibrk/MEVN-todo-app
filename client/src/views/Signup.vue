@@ -3,15 +3,24 @@
     <SpinnerVue v-if="loadingUser" />
     <form v-if="!loadingUser" @submit.prevent="onSubmit">
       <h3>Sign up</h3>
-      <input type="text" placeholder="Username" v-model="username" />
-      <input type="email" placeholder="Email" v-model="email" />
-      <input type="password" placeholder="Password" v-model="password" />
+      <input required type="text" placeholder="Username" v-model="username" />
+      <input required type="email" placeholder="Email" v-model="email" />
+      <input
+        required
+        type="password"
+        placeholder="Password"
+        v-model="password"
+      />
       <input
         type="password"
         placeholder="Repeat password"
         v-model="password2"
       />
       <button>Sign up</button>
+      <div class="to-signup">
+        Already have an account? <br />
+        <router-link to="Signin">Sign in !</router-link>
+      </div>
       <Error v-for="error in errors" :key="error.id" :error="error" />
     </form>
   </div>
@@ -73,7 +82,8 @@ form {
   max-width: 500px;
   margin: auto;
   margin-top: 3rem;
-  background-image: linear-gradient(90deg, #85ffbd 0%, #cac762 100%);
+  background-image: linear-gradient(90deg, #85ffbe88 0%, #cac662b2 100%);
+
   padding: 2rem;
   border-radius: 1rem;
   text-align: center;
@@ -84,6 +94,8 @@ form h3 {
   text-transform: uppercase;
   letter-spacing: 0.2rem;
   font-size: 2rem;
+  color: white;
+  text-shadow: 2px 2px 4px black;
 }
 form input {
   margin-top: 1rem;
@@ -95,6 +107,7 @@ form input {
 }
 form button {
   outline: none;
+
   margin: auto;
   text-transform: uppercase;
   margin-top: 2rem;
@@ -106,9 +119,44 @@ form button {
   background: #85ffbd;
   transition: all 0.5s ease;
   letter-spacing: 0.1rem;
+  color: rgb(61, 56, 56);
+  transition: all 0.5s ease;
+  box-shadow: 2px 2px 4px black;
 }
 form button:hover {
   background: rgb(63, 63, 63);
   color: #85ffbd;
+}
+
+h3 {
+  color: rgb(61, 56, 56);
+}
+.to-signup {
+  color: white;
+  text-shadow: 1px 1px black;
+}
+
+form a {
+  box-shadow: none;
+  background: #25a18e;
+  display: block;
+  width: fit-content;
+  margin: auto;
+  color: rgb(236, 236, 236) !important;
+  border-radius: 1rem;
+  transition: all 0.5s ease;
+  padding: 0.3rem;
+  margin-top: 1rem !important;
+}
+
+form a:hover {
+  background: rgb(63, 63, 63);
+  color: #85ffbd !important;
+}
+
+@media screen and (max-width: 800px) {
+  form {
+    max-width: 90%;
+  }
 }
 </style>
