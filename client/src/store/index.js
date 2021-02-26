@@ -4,7 +4,7 @@ import router from "../router";
 
 //axios instance
 const instance = axios.create({
-  baseURL: "http://localhost:5000"
+  baseURL: "https://rajkomevn.herokuapp.com"
 });
 //set axios autentification  headers  automaticly if there is token or not in local storage
 instance.interceptors.request.use(
