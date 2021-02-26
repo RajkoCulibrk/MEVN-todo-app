@@ -107,7 +107,6 @@ form input {
 }
 form button {
   outline: none;
-
   margin: auto;
   text-transform: uppercase;
   margin-top: 2rem;

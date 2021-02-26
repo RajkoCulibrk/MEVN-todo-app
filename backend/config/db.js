@@ -3,8 +3,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const URI =
-  "mongodb+srv://rajko:763198@cluster0.c3lwt.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"; /*  process.env.MONGO_URI; */
+const URI = process.env.MONGO_URI; /*  process.env.MONGO_URI; */
 const connectDB = async () => {
   try {
     await mongoose.connect(URI, {

@@ -58,11 +58,16 @@ label {
 }
 button {
   padding: 0.5rem;
-  background-color: rgb(117, 189, 117);
+  background-color: #38a3a5;
   color: white;
   outline: none;
   border-radius: 1rem;
   font-size: 1.2rem;
+  cursor: pointer !important;
+}
+
+button:hover {
+  background-color: #2a6d6e;
 }
 @media screen and (max-width: 800px) {
   .addTodo {
@@ -71,7 +76,6 @@ button {
   }
   button {
     font-size: 1rem;
-    background: #38a3a5;
   }
   .inputContainer {
     margin: 0.5rem 0;

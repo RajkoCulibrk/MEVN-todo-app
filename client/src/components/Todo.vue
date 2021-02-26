@@ -113,6 +113,11 @@ button {
   outline: none;
   background-color: #3a86ff;
   color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background: rgb(31, 29, 29);
 }
 
 .delete {

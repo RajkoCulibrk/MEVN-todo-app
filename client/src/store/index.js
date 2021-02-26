@@ -81,7 +81,6 @@ export default createStore({
   actions: {
     async signUp({ commit, dispatch }, { payload }) {
       try {
-        console.log(payload);
         let { data } = await instance.post("/api/users", payload);
         localStorage.setItem("token", data.token);
         dispatch("getUser");
@@ -112,7 +111,7 @@ export default createStore({
         const normal = data.filter(
           (todo) => todo.completed == false && todo.important == false
         );
-        /* state.todos.filter((todo)=>todo.completed==true) */
+
         const sorted = [...important, ...normal, ...completed];
         commit("setLoadingTodos", false);
         commit("setTodos", sorted);
@@ -123,9 +122,8 @@ export default createStore({
     },
     async signIn({ commit, dispatch }, { payload }) {
       try {
-        console.log(payload);
         let { data } = await instance.post("/api/auth", payload);
-        console.log(data);
+
         localStorage.setItem("token", data.token);
         dispatch("getUser");
       } catch (error) {
@@ -171,7 +169,6 @@ export default createStore({
     async updateTodo({ commit }, { payload }) {
       try {
         const todo = await instance.put(`/api/todos/${payload._id}`, payload);
-        console.log(todo);
       } catch (error) {
         console.log(error.response.data);
       }

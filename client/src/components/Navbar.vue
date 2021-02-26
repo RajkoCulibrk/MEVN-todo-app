@@ -57,6 +57,9 @@ export default {
   background: #85ffbd;
   box-shadow: 2px 2px 4px black;
 }
+.nav-links a:hover {
+  background: #41f193;
+}
 .logo img {
   width: 50px;
 }
